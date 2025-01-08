@@ -12,7 +12,7 @@ To generate GuanCEST, AmineCEST, and AmideCEST mappings of the sampled data from
 When you run the code, a GuanCEST image will be displayed and automatically saved in your specified folder.
 
 Example output image:
-![Zguan Map Demo](9.4T/data/Zguan_map.png)
+![Zguan Map Demo](https://github.com/Kexin-Wang/Guan_amine_amideCEST_stroke_mice/9.4T/data/Zguan_map.png)
 
 ---
 
