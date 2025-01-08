@@ -16,7 +16,7 @@ To generate GuanCEST, AmineCEST, and AmideCEST mappings from the data of a perma
 - Once the code runs, a GuanCEST image will be displayed and automatically saved in your specified folder.
 - Example output image:
 
-  ![Zguan Map Demo](https://github.com/Kexin-Wang/Guan_amine_amideCEST_stroke_mice/9.4T/data/Zguan_map.png)
+  ![Zguan Map Demo](9.4T/data/Zamide_map.tif)
 
 ---
 
