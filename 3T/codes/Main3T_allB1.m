@@ -41,7 +41,7 @@ colorbar('location','Eastoutside','FontSize', 18)
 set(gca,'dataAspectRatio', [1 1 1]);
 axis off
 hold off
-SaveEps(datapath_pwr, 'Zguan_map');
+SaveEps(datapath_pwr, 'Zamide_map');
 
 %   display GuanCEST map
 figure();
