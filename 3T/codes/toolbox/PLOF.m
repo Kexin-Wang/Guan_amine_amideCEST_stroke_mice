@@ -22,13 +22,6 @@ function [FitResult, FitParam] = PLOF(Offset, Saturation, FitParam)
 
 % Please contact Kexin Wang at kwang101@jhu.edu if you have any questions about the code. 
 
-% UPDATED 11/14/2022:
-%           update Rback in CurveFunction
-% UPDATED 01/26/2023:
-%           update x0, lb, ub for different B1
-% UPDATED 05/02/2024:
-%           update x0, lb, ub for B1 of 0.8uT for the demo of WT03
-
 warning off
 if size(Offset,1) == 1
     Offset = Offset';
