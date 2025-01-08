@@ -22,12 +22,6 @@ function [FitResult, FitParam] = PLOF_400Hz(Offset, Saturation, FitParam)
 
 % Please contact Kexin Wang at kwang101@jhu.edu if you have any questions about the code. 
 
-% UPDATED 11/14/2022:
-%           update Rback in CurveFunction
-% UPDATED 01/26/2023:
-%           update x0, lb, ub for different B1
-% UPDATED 11/12/2023:
-%           update to 3-peak fitting for the 9.4T results
 
 warning off
 if size(Offset,1) == 1
