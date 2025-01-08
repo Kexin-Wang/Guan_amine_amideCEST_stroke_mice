@@ -13,9 +13,10 @@ To generate GuanCEST, AmineCEST, and AmideCEST mappings from the data of a perma
 3. **Run** the `Main400Hz_allB1.m` script in MATLAB. This script processes the data and generates mappings based on a \(B_1\) field strength of **1.6 μT**.
 
 ### Output
-- Once the code runs, a GuanCEST image will be displayed and automatically saved in your specified folder.
+- Once the code runs, GuanCEST, amineCEST, and amideCEST images will be displayed and automatically saved in your specified folder.
 - Example output image:
-
+  ![Zguan Map Demo](9.4T/data/Zguan_map.tif)
+  ![Zamine Map Demo](9.4T/data/Zamine_map.tif)
   ![Zguan Map Demo](9.4T/data/Zamide_map.tif)
 
 ---
