@@ -1,0 +1,118 @@
+% INSTRUCTIONS:
+%       1. Load CEST images of one B1 value, mask, frequency list
+%       2. Fit the PLOF and estimate the maps of amideCEST and GuanCEST
+
+clear all;
+clc; 
+close all;
+
+addpath toolbox;
+
+%   Load the frequency list: 73 offsets
+load('path-to-data/crlist.mat');
+load('path-to-data/crlist.mat');
+
+FitParam.tsat = 2; % saturation length (second) 
+FitParam.Magfield = 42.58*3; % 3 T
+FitParam.R1 = 1/1.205;
+FitParam.CalSNR = 1;
+FitParam.ifshowimage = 0;
+FitParam.PeakRange = [1, 5];
+
+load(ROI1);
+ST_mask = squeeze(ROI(:, :, 1)); 
+HC_mask = squeeze(ROI(:, :, 2)); 
+ROI1 = [ datapath filesep 'mask.mat'];
+load(ROI1);
+
+for pwr_idx = 1 : size(pwr_list, 2) %  size(pwr_list, 2)
+expno = expno_list(pwr_idx);
+FitParam.satpwr = pwr_list(pwr_idx); % saturation power (uT)
+[imgs Nrows Ncolumns NI NR]=read_2dseq_v3(datapath,expno,1);
+imgs = squeeze(imgs);   %   64*64*73
+sub_datapath = [datapath filesep sprintf('%02d', FitParam.satpwr * 10) 'uT'];
+mymkdir(sub_datapath);
+
+%   use PLOF to calculate the CEST mappings
+[FitResult] = amide_process_3T(ROI, imgs, fullppm, FitParam);
+sname = [sub_datapath, filesep, 'FitResult.mat'];
+save(sname, 'FitResult');
+%   healthy
+amideMean = mean(FitResult.ZamideMap(logical(FitResult.mask.*HC_mask)));
+guanMean = mean(FitResult.ZguanMap(logical(FitResult.mask.*HC_mask)));
+CEST_pwr.HC(pwr_idx, 2) = amideMean;
+CEST_pwr.HC(pwr_idx, 3) = guanMean;
+%   Stroke
+amideMean = mean(FitResult.ZamideMap(logical(FitResult.mask.*ST_mask)));
+guanMean = mean(FitResult.ZguanMap(logical(FitResult.mask.*ST_mask)));
+CEST_pwr.ST(pwr_idx, 2) = amideMean;
+CEST_pwr.ST(pwr_idx, 3) = guanMean;
+
+%   use PLOF to calculate the CEST mappings
+datapath_pwr = sub_datapath;
+figure();
+set(gca,'Position',[0.05 0.05 0.9 0.9]);
+imagesc(FitResult.ZamideMap, [0, min(6.5, max(max(FitResult.ZamideMap)))]); % 0, 4
+title('Zamide map (%)')
+colormap(inferno)
+colorbar('location','Eastoutside','FontSize', 18)
+set(gca,'dataAspectRatio', [1 1 1]);
+axis off
+hold off
+SaveEps(datapath_pwr, 'Zamide_map');
+%   display Zguan map
+figure();
+set(gca,'Position',[0.05 0.05 0.9 0.9]);
+imagesc(FitResult.ZguanMap, [0, min(6, max(max(FitResult.ZguanMap)))]); % 0, 4
+title('Zguan map (%)')
+colormap(inferno)
+colorbar('location','Eastoutside','FontSize', 18)
+set(gca,'dataAspectRatio', [1 1 1]);
+axis off
+hold off
+SaveEps(datapath_pwr, 'Zguan_map');
+%   display M0 map
+figure();
+set(gca,'Position',[0.05 0.05 0.9 0.9]);
+M0 = FitResult.mask .* imgs(:, :, 2);
+M0 = M0./max(max(M0));
+imshow(M0, [0, 1]); % 0, 4
+title('M0 map (%)')
+colormap(gray(255));
+colorbar('location','Eastoutside','FontSize', 18)
+set(gca,'dataAspectRatio', [1 1 1]);
+axis off
+hold off
+SaveEps(datapath_pwr, 'M0_map');
+end
+CEST_pwr.diff = CEST_pwr.ST - CEST_pwr.HC;
+CEST_pwr.guan_amide_ratio_HC = CEST_pwr.HC(:, 3)./CEST_pwr.HC(:, 2);
+CEST_pwr.guan_amide_ratio_ST = CEST_pwr.ST(:, 3)./CEST_pwr.ST(:, 2);
+CEST_pwr.namelist = {'amideMean'; 'guanMean'};
+sname = [datapath filesep 'CEST_pwr.mat'];
+save(sname, 'CEST_pwr');
+
+%   Look at the mask
+figure();
+set(gca,'Position',[0.05 0.05 0.9 0.9]);
+imagesc(FitResult.MTbgMap, [0, max(max(FitResult.MTbgMap))]); % 0, 4
+title('MTbg map (%)')
+colormap(inferno)
+colorbar('location','Eastoutside','FontSize', 18)
+set(gca,'dataAspectRatio', [1 1 1]);
+axis off
+hold off
+SaveEps(datapath_pwr, 'MT');
+
+uu = FitResult.MTbgMap;
+uu(HC_mask) = 0;
+uu(ST_mask) = 0;
+figure();
+set(gca,'Position',[0.05 0.05 0.9 0.9]);
+imagesc(uu, [0, max(max(FitResult.MTbgMap))]); % 0, 4
+title('MTbg map (%)')
+colormap(inferno)
+colorbar('location','Eastoutside','FontSize', 18)
+set(gca,'dataAspectRatio', [1 1 1]);
+axis off
+hold off
