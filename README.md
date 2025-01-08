@@ -18,7 +18,7 @@ To generate GuanCEST, AmineCEST, and AmideCEST mappings from the data of a perma
   ![Zguan Map Demo](9.4T/data/Zguan_map.tif)
   ![Zamine Map Demo](9.4T/data/Zamine_map.tif)
   ![Zamide Map Demo](9.4T/data/Zamide_map.tif)
-  ![M0 Map Demo](9.4T/data/M0.tif)
+  ![M0 Map Demo](9.4T/data/M0_map.tif)
 ---
 
 ## 3T
@@ -35,7 +35,7 @@ To generate GuanCEST and AmideCEST mappings from the data of a transient MCAO (t
 
   ![Zguan Map Demo](3T/data/Zguan_map.tif)
   ![Zamide Map Demo](3T/data/Zamide_map.tif)
-  ![M0 Map Demo](3T/data/M0.tif)
+  ![M0 Map Demo](3T/data/M0_map.tif)
 
 ---
 
