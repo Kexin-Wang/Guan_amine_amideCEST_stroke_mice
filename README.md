@@ -1,8 +1,14 @@
-# GuanCEST, AmineCEST, and AmideCEST Mappings of Stroke Mouse Models
+# GuanCEST, AmineCEST, and AmideCEST Mapping in Stroke Mouse Models  
 
-This repository provides MATLAB code for generating GuanCEST, AmineCEST, and AmideCEST mappings from mouse brain MRI data. Below are the instructions for processing data acquired at 9.4T and 3T field strengths.
+This repository contains MATLAB code for generating GuanCEST, AmineCEST, and AmideCEST maps from mouse brain MRI data acquired at **9.4T** and **3T** field strengths.  
 
----
+📄 The associated paper is published here: [NeuroImage (2025)](https://www.sciencedirect.com/science/article/pii/S1053811924004907?via%3Dihub).  
+
+If you use this code in your work, please cite:  
+
+> Wang, K., Ju, L., Qiao, G., Liang, Y., Wu, Y., Chu, C., ... & Xu, J. (2025). *Elucidating metabolite and pH variations in stroke through guanidino, amine and amide CEST MRI: A comparative multi-field study at 9.4 T and 3T.*  **NeuroImage, 305,** 120993.    
+ 
+Detailed instructions for processing data at both field strengths are provided below.  
 
 ## 9.4T
 
